@@ -12,7 +12,16 @@ map2 = [
     [1, 0, 0, 24],
     [1, 1, 1, 1]
 ]
-map = map1
+
+map3 = [
+    [12, 1, 0, 0],
+    [0, 0, 1, 0],
+    [1, 0, 1, 0],   
+    [24, 0, 0, 0],
+    [1, 1, 1, 1]
+]
+
+map = map3
 # 1. step
 start_position_x = 0
 start_position_y = 0
@@ -24,9 +33,12 @@ def move(step, current_position_x, current_position_y):
     
     can_move_right = current_position_x <= 2 and map[current_position_y][current_position_x + 1] == 0
     can_move_bottom = current_position_y <= 2 and map[current_position_y + 1][current_position_x] == 0
+    can_move_left = current_position_x <= 2 and map[current_position_y][current_position_x - 1] == 0
+
 
     right_is_finish = current_position_x <= 2 and map[current_position_y][current_position_x + 1] == 24
     bottom_is_finish = current_position_y <= 2 and map[current_position_y + 1][current_position_x] == 24
+    left_is_finish = current_position_x <= 2 and map[current_position_y][current_position_x - 1] == 24
 
     if right_is_finish:
         print("Found finish on right")
@@ -35,13 +47,22 @@ def move(step, current_position_x, current_position_y):
     if bottom_is_finish:
         print("Found finish on bottom")
         return False
+    
+    if left_is_finish:
+        print("Found finish on left")
+        return False
 
     if can_move_right:
         print("Should move right")
         return[current_position_x + 1, current_position_y]
 
     if can_move_bottom:
+        print("Should move down")
         return[current_position_x, current_position_y + 1]
+    
+    if can_move_left:
+        print("Should move left")
+        return[current_position_x - 1, current_position_y]
 
 
 current_move_number = 1
